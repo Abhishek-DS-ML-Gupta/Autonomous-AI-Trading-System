@@ -1,0 +1,79 @@
+# =====================================
+# 🔒  Python AI Trading Bot .gitignore
+# =====================================
+
+# 🧠 Virtual environment
+venv/
+.env/
+.env.bak/
+*.env
+
+# 🧩 Python cache / build files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+build/
+dist/
+.eggs/
+*.manifest
+*.spec
+
+# 🧰 Logs / temp data
+logs/
+*.log
+nohup.out
+
+# 📊 Model & dataset artifacts
+models/
+data/
+*.csv
+*.h5
+*.pkl
+*.joblib
+*.jsonl
+*.parquet
+
+# 💼 Alpaca / credentials
+config/config.json
+config/*.json
+apikeys.json
+secret_*.json
+
+# 🧪 IDE and editor files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.bak
+
+# ⚙️ OS metadata
+desktop.ini
+ehthumbs.db
+$RECYCLE.BIN/
+
+# 📦 GitHub / deployment cache
+*.tgz
+*.tar.gz
+*.zip
+*.gz
+
+# 🧮 Notebooks / experiments (optional)
+*.ipynb_checkpoints
+notebooks/.ipynb_checkpoints
+
+# 🧪 TensorFlow / Keras temporary files
+checkpoint
+*.tfevents.*
+
+# 📈 Jupyter autosaves
+~$*.ipynb
+
+# 🧠 Local trading logs and cache
+*.sqlite3
+*.db
+trade_history.csv
