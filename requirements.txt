@@ -1,0 +1,26 @@
+# === Core ML & Data Libraries ===
+tensorflow==2.17.0
+numpy==1.26.4
+pandas==2.2.3
+scikit-learn==1.5.2
+
+# === Market Data ===
+yfinance==0.2.44
+requests==2.32.3
+urllib3==2.2.2
+
+# === Trading API (Alpaca) ===
+alpaca-py==0.14.1
+
+# === Plotting & Visualization (optional for analytics) ===
+matplotlib==3.9.2
+
+# === System & Utility ===
+certifi==2025.10.5
+python-dateutil==2.9.0
+pytz==2024.2
+
+# === Logging & CSV support (included by default in Python) ===
+# csv
+# os
+# datetime

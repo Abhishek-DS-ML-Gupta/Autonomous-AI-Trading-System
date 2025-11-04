@@ -2,46 +2,26 @@ import json
 from alpaca.trading.client import TradingClient
 from alpaca.trading.requests import MarketOrderRequest
 from alpaca.trading.enums import OrderSide, TimeInForce
+from src.logger import log_trade
 
-def place_order(signal, qty=1):
-    """
-    Places a BUY or SELL order on Alpaca (paper trading).
-    Reads credentials from config/config.json
-    """
-    # Load credentials
-    config = json.load(open("config/config.json"))
-
-    trading_client = TradingClient(
-        config["API_KEY"],
-        config["API_SECRET"],
-        paper=True  # ensures paper-trading mode
-    )
+def place_order(signal, current_price, predicted_price, qty=1):
+    """Execute a market order on Alpaca (paper)."""
+    with open("config/config.json") as f:
+        config = json.load(f)
 
     symbol = config["symbol"]
+    trading_client = TradingClient(config["API_KEY"], config["API_SECRET"], paper=True)
 
-    if signal == "BUY":
-        order_data = MarketOrderRequest(
-            symbol=symbol,
-            qty=qty,
-            side=OrderSide.BUY,
-            time_in_force=TimeInForce.GTC
-        )
-        trading_client.submit_order(order_data)
-        print(f"✅ Placed BUY order for {qty} share(s) of {symbol}")
-
-    elif signal == "SELL":
-        order_data = MarketOrderRequest(
-            symbol=symbol,
-            qty=qty,
-            side=OrderSide.SELL,
-            time_in_force=TimeInForce.GTC
-        )
-        trading_client.submit_order(order_data)
-        print(f"❌ Placed SELL order for {qty} share(s) of {symbol}")
-
-    else:
+    if signal == "HOLD":
         print("⚖️ No trade executed (HOLD).")
+        return
 
-if __name__ == "__main__":
-    # Example test call (you can comment this out later)
-    place_order("BUY", qty=1)
+    side = OrderSide.BUY if signal == "BUY" else OrderSide.SELL
+    order_req = MarketOrderRequest(symbol=symbol, qty=qty, side=side, time_in_force=TimeInForce.GTC)
+
+    try:
+        order = trading_client.submit_order(order_req)
+        print(f"✅ {signal} order placed for {qty} share(s) of {symbol}")
+        log_trade(symbol, signal, current_price, predicted_price, qty)
+    except Exception as e:
+        print(f"❌ Trade failed: {e}")

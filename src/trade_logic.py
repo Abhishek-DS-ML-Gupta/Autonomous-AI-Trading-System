@@ -1,7 +1,7 @@
 def trading_signal(current_price, predicted_price, threshold=0.01):
     """
-    Returns a trading signal based on the predicted vs current price.
-    threshold = % difference for triggering a trade (default: 1%)
+    Generates BUY / SELL / HOLD signals based on predicted change.
+    threshold = 0.01 → 1% difference.
     """
     diff = (predicted_price - current_price) / current_price
 
@@ -12,5 +12,5 @@ def trading_signal(current_price, predicted_price, threshold=0.01):
         print(f"📉 Predicted drop of {abs(diff)*100:.2f}% → SELL signal")
         return "SELL"
     else:
-        print(f"⚖️ Change {diff*100:.2f}% within threshold → HOLD")
+        print("⚖️ No major change → HOLD signal")
         return "HOLD"
